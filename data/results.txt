@@ -1,0 +1,148 @@
+******************************************************************************************************
+******************************************************************************************************
+======================================
+No regularization, no momentum term
+convergence_critera = -1e-03 * 5
+learning_rate = 1e04 * 2
+epochs_per_validation = 10
+======================================
+
+kerryz@kz-xps:~/Dropbox/Skolarbeten/Tsinghua Course Notes/Machine Learning/HW/HW01 - Logistic Regression
+$ time python main.py
+loading feature file ./data/s2_features
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+Calculating the squared error on the validation set ...
+Epoch 0: average squared error on validation set: 0.125280
+Convergence critera: when difference > -0.005000
+Epoch 10: average squared error on validation set: 0.044512  |  Difference: -0.080768
+Epoch 20: average squared error on validation set: 0.037112  |  Difference: -0.007399
+Epoch 30: average squared error on validation set: 0.033153  |  Difference: -0.003960
+loading feature file ./data/s1_features
+
+----------------------------------------
+test set         s1_features
+training sets: ['s2_features', 's3_features', 's4_features']
+validation set:  s5_features
+
+Confusion matrix
+[[ 191.   16.]
+ [   8.  183.]]
+Recall:    0.959798994975
+Precision: 0.92270531401
+F1 Score:  0.940886699507
+----------------------------------------
+
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+loading feature file ./data/s1_features
+Calculating the squared error on the validation set ...
+Epoch 0: average squared error on validation set: 0.125062
+Convergence critera: when difference > -0.005000
+Epoch 10: average squared error on validation set: 0.064344  |  Difference: -0.060718
+Epoch 20: average squared error on validation set: 0.055579  |  Difference: -0.008765
+Epoch 30: average squared error on validation set: 0.050603  |  Difference: -0.004975
+loading feature file ./data/s2_features
+
+----------------------------------------
+test set         s2_features
+training sets: ['s3_features', 's4_features', 's5_features']
+validation set:  s1_features
+
+Confusion matrix
+[[ 187.   11.]
+ [  12.  188.]]
+Recall:    0.939698492462
+Precision: 0.944444444444
+F1 Score:  0.942065491184
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+loading feature file ./data/s2_features
+Calculating the squared error on the validation set ...
+Epoch 0: average squared error on validation set: 0.125121
+Convergence critera: when difference > -0.005000
+Epoch 10: average squared error on validation set: 0.039257  |  Difference: -0.085863
+Epoch 20: average squared error on validation set: 0.031505  |  Difference: -0.007753
+Epoch 30: average squared error on validation set: 0.027832  |  Difference: -0.003673
+loading feature file ./data/s3_features
+
+----------------------------------------
+test set         s3_features
+training sets: ['s1_features', 's4_features', 's5_features']
+validation set:  s2_features
+
+Confusion matrix
+[[ 194.    9.]
+ [   5.  190.]]
+Recall:    0.974874371859
+Precision: 0.955665024631
+F1 Score:  0.965174129353
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s2_features
+loading feature file ./data/s5_features
+loading feature file ./data/s3_features
+Calculating the squared error on the validation set ...
+Epoch 0: average squared error on validation set: 0.125145
+Convergence critera: when difference > -0.005000
+Epoch 10: average squared error on validation set: 0.047495  |  Difference: -0.077650
+Epoch 20: average squared error on validation set: 0.042563  |  Difference: -0.004932
+loading feature file ./data/s4_features
+
+----------------------------------------
+test set         s4_features
+training sets: ['s1_features', 's2_features', 's5_features']
+validation set:  s3_features
+
+Confusion matrix
+[[ 196.   14.]
+ [   3.  185.]]
+Recall:    0.984924623116
+Precision: 0.933333333333
+F1 Score:  0.958435207824
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s2_features
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+Calculating the squared error on the validation set ...
+Epoch 0: average squared error on validation set: 0.125048
+Convergence critera: when difference > -0.005000
+Epoch 10: average squared error on validation set: 0.073760  |  Difference: -0.051287
+Epoch 20: average squared error on validation set: 0.068407  |  Difference: -0.005353
+Epoch 30: average squared error on validation set: 0.065418  |  Difference: -0.002989
+loading feature file ./data/s5_features
+
+----------------------------------------
+test set         s5_features
+training sets: ['s1_features', 's2_features', 's3_features']
+validation set:  s4_features
+
+Confusion matrix
+[[ 181.   13.]
+ [  18.  185.]]
+Recall:    0.909547738693
+Precision: 0.932989690722
+F1 Score:  0.921119592875
+----------------------------------------
+
+========================================
+Averages over 5 iterations
+Recall:    0.953768844221
+Precision: 0.937827561428
+F1 Score:  0.945536224149
+========================================
+
+real	0m28.440s
+user	0m27.829s
+sys	0m0.220s
+
+******************************************************************************************************
+******************************************************************************************************
