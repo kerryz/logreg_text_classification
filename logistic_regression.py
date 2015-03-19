@@ -10,7 +10,8 @@ convergence_critera = -1e-03 * 5
 # currently regularization is not used as it decreases performance
 # set reg_const to around 1e-07*2 for reasonable results
 reg_const = 0
-# momentum_constant = 0.9
+# currently the momentum term is not used because it doesn't improve performance
+momentum_constant = 0
 
 
 class LogReg(object):
@@ -19,6 +20,8 @@ class LogReg(object):
         self.num_weights = num_weights
         # initialize weights randomly if none is provided
         self.weights = weights or np.random.randn(num_weights, 1)
+        # momentum term
+        self.old_delta_w = np.zeros((num_weights, 1))
 
     def feedforward_sparse(self, x):
         """
@@ -55,11 +58,17 @@ class LogReg(object):
             for i, x in enumerate(training_data):
                 h_i = self.feedforward_sparse(x)
                 error_term = targets[i, 0] - h_i
+                # gradient descent on weights
                 # sparse vector addition optimization
                 for feature_id, feature_value in x.iteritems():
+                    delta_w = (
+                        eta * error_term * feature_value
+                        - eta * reg_const * self.weights[feature_id, 0]  # regularization
+                        + momentum_constant * self.old_delta_w[feature_id, 0]  # momentum term
+                    )
                     # gradient descent
-                    self.weights[feature_id, 0] += (eta * error_term * feature_value
-                                                    - eta * reg_const * self.weights[feature_id, 0])
+                    self.weights[feature_id, 0] += delta_w
+                    self.old_delta_w[feature_id, 0] = delta_w
 
             # calculate the average error for the validation set
             if epoch % epochs_per_validation == 0:

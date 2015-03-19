@@ -77,7 +77,7 @@ def main():
 
     total_iterations = len(feature_file_paths)
     print "=" * 40
-    print "Averages over %d iterations" % total_iterations
+    print "Averages of %d-fold cross validation" % total_iterations
     print "Recall:   ", recall_sum / total_iterations
     print "Precision:", precision_sum / total_iterations
     print "F1 Score: ", f1_sum / total_iterations
