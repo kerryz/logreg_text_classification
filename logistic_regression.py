@@ -3,10 +3,14 @@ import numpy as np
 # TODO: regularization, momentum term
 
 learning_rate = 1e04 * 2  # TODO: normalize my data...
-reg_const = 1  # regularization constant
-# momentum_constant = 0.9
 epochs_per_validation = 10
 convergence_critera = -1e-03 * 5
+
+# regularization constant
+# currently regularization is not used as it decreases performance
+# set reg_const to around 1e-07*2 for reasonable results
+reg_const = 0
+# momentum_constant = 0.9
 
 
 class LogReg(object):
@@ -36,9 +40,10 @@ class LogReg(object):
         epoch = 0
 
         # calculate the average error for the validation set
-        print "Calculating the squared error on the validation set ..."
-        squared_error_old = self.get_avg_squared_error((validation_data, validation_targets))
-        print "Epoch %d: average squared error on validation set: %f" % (epoch, squared_error_old)
+        print "Calculating the loss function value on the validation set ..."
+        loss_old = self.get_avg_loss((validation_data, validation_targets))
+        print "Epoch %d: average loss function value on validation set: %f" \
+              % (epoch, loss_old)
         print "Convergence critera: when difference > %f" % (convergence_critera)
         weights_old = self.weights
 
@@ -53,31 +58,33 @@ class LogReg(object):
                 # sparse vector addition optimization
                 for feature_id, feature_value in x.iteritems():
                     # gradient descent
-                    self.weights[feature_id, 0] += eta * error_term * feature_value
+                    self.weights[feature_id, 0] += (eta * error_term * feature_value
+                                                    - eta * reg_const * self.weights[feature_id, 0])
 
             # calculate the average error for the validation set
             if epoch % epochs_per_validation == 0:
-                squared_error_new = self.get_avg_squared_error(
+                loss_new = self.get_avg_loss(
                     (validation_data, validation_targets))
-                difference = squared_error_new - squared_error_old
-                print "Epoch %d: average squared error on validation set: %f  |  Difference: %f" \
-                      % (epoch, squared_error_new, difference)
+                difference = loss_new - loss_old
+                print "Epoch %d: average loss function value: %f  |  Difference: %f" \
+                      % (epoch, loss_new, difference)
 
                 if difference > convergence_critera:
                     converged = True
 
-                squared_error_old = squared_error_new
+                loss_old = loss_new
 
         self.weights = weights_old
         return weights_old
 
-    def get_avg_squared_error(self, (validation_data, validation_targets)):
+    def get_avg_loss(self, (validation_data, validation_targets)):
         validation_size = len(validation_data)
-        squared_error_sum = 0
+        loss_sum = 0
         for i, x in enumerate(validation_data):
             h_i = self.feedforward_sparse(x)
-            squared_error_sum += (h_i - validation_targets[i, 0])**2
-        return 0.5 * squared_error_sum / validation_size
+            loss_sum += (h_i - validation_targets[i, 0])**2
+        l2_term = reduce(lambda acc, x: acc + x[0]**2, self.weights)[0]
+        return ((0.5*loss_sum) + (0.5*reg_const * l2_term)) / validation_size
 
     def get_confusion_matrix(self, inputs, targets):
         confusion_matrix = np.zeros((2, 2))
