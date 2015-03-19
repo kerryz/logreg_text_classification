@@ -146,3 +146,284 @@ sys	0m0.220s
 
 ******************************************************************************************************
 ******************************************************************************************************
+
+This time with weights_old = np.copy(self.weights)
+
+kerryz@kz-xps:~/Dropbox/Skolarbeten/Tsinghua Course Notes/Machine Learning/HW/HW01 - Logistic Regression
+$ time python main.py 
+loading feature file ./data/s2_features
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.124744
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.044416  |  Difference: -0.080328
+Epoch 20: average loss function value: 0.037085  |  Difference: -0.007331
+Epoch 30: average loss function value: 0.033154  |  Difference: -0.003931
+loading feature file ./data/s1_features
+
+----------------------------------------
+test set         s1_features
+training sets: ['s2_features', 's3_features', 's4_features']
+validation set:  s5_features
+
+Confusion matrix
+[[ 190.   14.]
+ [   9.  185.]]
+Recall:    0.954773869347
+Precision: 0.93137254902
+F1 Score:  0.942928039702
+----------------------------------------
+
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+loading feature file ./data/s1_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.124831
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.064332  |  Difference: -0.060499
+Epoch 20: average loss function value: 0.055584  |  Difference: -0.008748
+Epoch 30: average loss function value: 0.050618  |  Difference: -0.004966
+loading feature file ./data/s2_features
+
+----------------------------------------
+test set         s2_features
+training sets: ['s3_features', 's4_features', 's5_features']
+validation set:  s1_features
+
+Confusion matrix
+[[ 185.    8.]
+ [  14.  191.]]
+Recall:    0.929648241206
+Precision: 0.958549222798
+F1 Score:  0.94387755102
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+loading feature file ./data/s2_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.125327
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.039421  |  Difference: -0.085906
+Epoch 20: average loss function value: 0.031697  |  Difference: -0.007724
+Epoch 30: average loss function value: 0.028043  |  Difference: -0.003654
+loading feature file ./data/s3_features
+
+----------------------------------------
+test set         s3_features
+training sets: ['s1_features', 's4_features', 's5_features']
+validation set:  s2_features
+
+Confusion matrix
+[[ 193.    5.]
+ [   6.  194.]]
+Recall:    0.969849246231
+Precision: 0.974747474747
+F1 Score:  0.972292191436
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s2_features
+loading feature file ./data/s5_features
+loading feature file ./data/s3_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.124759
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.047453  |  Difference: -0.077305
+Epoch 20: average loss function value: 0.042532  |  Difference: -0.004921
+loading feature file ./data/s4_features
+
+----------------------------------------
+test set         s4_features
+training sets: ['s1_features', 's2_features', 's5_features']
+validation set:  s3_features
+
+Confusion matrix
+[[ 194.   11.]
+ [   5.  188.]]
+Recall:    0.974874371859
+Precision: 0.946341463415
+F1 Score:  0.960396039604
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s2_features
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.124982
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.073756  |  Difference: -0.051226
+Epoch 20: average loss function value: 0.068401  |  Difference: -0.005355
+Epoch 30: average loss function value: 0.065411  |  Difference: -0.002990
+loading feature file ./data/s5_features
+
+----------------------------------------
+test set         s5_features
+training sets: ['s1_features', 's2_features', 's3_features']
+validation set:  s4_features
+
+Confusion matrix
+[[ 180.   13.]
+ [  19.  185.]]
+Recall:    0.904522613065
+Precision: 0.932642487047
+F1 Score:  0.918367346939
+----------------------------------------
+
+========================================
+Averages of 5-fold cross validation
+Recall:    0.946733668342
+Precision: 0.948730639405
+F1 Score:  0.94757223374
+========================================
+
+real	0m48.768s
+user	0m48.692s
+sys	0m0.064s
+
+**************************************************************************
+**************************************************************************
+
+Added if reg_const != 0: to not do unnecesary calculations
+
+kerryz@kz-xps:~/Dropbox/Skolarbeten/Tsinghua Course Notes/Machine Learning/HW/HW01 - Logistic Regression
+$ time python main.py 
+loading feature file ./data/s2_features
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.123991
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.044292  |  Difference: -0.079699
+Epoch 20: average loss function value: 0.036972  |  Difference: -0.007319
+Epoch 30: average loss function value: 0.033046  |  Difference: -0.003926
+loading feature file ./data/s1_features
+
+----------------------------------------
+test set         s1_features
+training sets: ['s2_features', 's3_features', 's4_features']
+validation set:  s5_features
+
+Confusion matrix
+[[ 189.   14.]
+ [  10.  185.]]
+Recall:    0.949748743719
+Precision: 0.931034482759
+F1 Score:  0.940298507463
+----------------------------------------
+
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+loading feature file ./data/s1_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.125068
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.064425  |  Difference: -0.060643
+Epoch 20: average loss function value: 0.055676  |  Difference: -0.008750
+Epoch 30: average loss function value: 0.050708  |  Difference: -0.004968
+loading feature file ./data/s2_features
+
+----------------------------------------
+test set         s2_features
+training sets: ['s3_features', 's4_features', 's5_features']
+validation set:  s1_features
+
+Confusion matrix
+[[ 187.   10.]
+ [  12.  189.]]
+Recall:    0.939698492462
+Precision: 0.94923857868
+F1 Score:  0.944444444444
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s4_features
+loading feature file ./data/s5_features
+loading feature file ./data/s2_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.125425
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.039415  |  Difference: -0.086010
+Epoch 20: average loss function value: 0.031658  |  Difference: -0.007758
+Epoch 30: average loss function value: 0.027978  |  Difference: -0.003680
+loading feature file ./data/s3_features
+
+----------------------------------------
+test set         s3_features
+training sets: ['s1_features', 's4_features', 's5_features']
+validation set:  s2_features
+
+Confusion matrix
+[[ 193.    5.]
+ [   6.  194.]]
+Recall:    0.969849246231
+Precision: 0.974747474747
+F1 Score:  0.972292191436
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s2_features
+loading feature file ./data/s5_features
+loading feature file ./data/s3_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.125194
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.047723  |  Difference: -0.077471
+Epoch 20: average loss function value: 0.042793  |  Difference: -0.004930
+loading feature file ./data/s4_features
+
+----------------------------------------
+test set         s4_features
+training sets: ['s1_features', 's2_features', 's5_features']
+validation set:  s3_features
+
+Confusion matrix
+[[ 194.   11.]
+ [   5.  188.]]
+Recall:    0.974874371859
+Precision: 0.946341463415
+F1 Score:  0.960396039604
+----------------------------------------
+
+loading feature file ./data/s1_features
+loading feature file ./data/s2_features
+loading feature file ./data/s3_features
+loading feature file ./data/s4_features
+Calculating the loss function value on the validation set ...
+Epoch 0: average loss function value on validation set: 0.125078
+Convergence critera: when difference > -0.005000
+Epoch 10: average loss function value: 0.073790  |  Difference: -0.051288
+Epoch 20: average loss function value: 0.068433  |  Difference: -0.005357
+Epoch 30: average loss function value: 0.065442  |  Difference: -0.002991
+loading feature file ./data/s5_features
+
+----------------------------------------
+test set         s5_features
+training sets: ['s1_features', 's2_features', 's3_features']
+validation set:  s4_features
+
+Confusion matrix
+[[ 181.   11.]
+ [  18.  187.]]
+Recall:    0.909547738693
+Precision: 0.942708333333
+F1 Score:  0.925831202046
+----------------------------------------
+
+========================================
+Averages of 5-fold cross validation
+Recall:    0.948743718593
+Precision: 0.948814066587
+F1 Score:  0.948652476999
+========================================
+
+real	0m32.938s
+user	0m32.790s
+sys	0m0.108s

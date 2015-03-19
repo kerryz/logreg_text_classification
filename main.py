@@ -23,7 +23,7 @@ def main():
     precision_sum, recall_sum, f1_sum = 0, 0, 0
 
     for i, test_set_path in enumerate(feature_file_paths):
-        # separate in to training, validation, and test sets
+        # separate into training, validation, and test sets
         training_set_paths = get_list_without_index(feature_file_paths, i)
         validation_set_path = training_set_paths.pop(i - 1)
 

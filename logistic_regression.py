@@ -8,7 +8,7 @@ convergence_critera = -1e-03 * 5
 
 # regularization constant
 # currently regularization is not used as it decreases performance
-# set reg_const to around 1e-07*2 for reasonable results
+# set reg_const to around 1e-03 for reasonable results
 reg_const = 0
 # currently the momentum term is not used because it doesn't improve performance
 momentum_constant = 0
@@ -21,7 +21,7 @@ class LogReg(object):
         # initialize weights randomly if none is provided
         self.weights = weights or np.random.randn(num_weights, 1)
         # momentum term
-        self.old_delta_w = np.zeros((num_weights, 1))
+        self.delta_w_old = np.zeros((num_weights, 1))
 
     def feedforward_sparse(self, x):
         """
@@ -48,29 +48,33 @@ class LogReg(object):
         print "Epoch %d: average loss function value on validation set: %f" \
               % (epoch, loss_old)
         print "Convergence critera: when difference > %f" % (convergence_critera)
-        weights_old = self.weights
+        weights_old = np.copy(self.weights)
 
         while not converged:
             epoch += 1
-
-            weights_old = self.weights
             # go through the training data
             for i, x in enumerate(training_data):
                 h_i = self.feedforward_sparse(x)
-                error_term = targets[i, 0] - h_i
+                error_term_i = targets[i, 0] - h_i
+                delta_w_i = np.zeros(self.weights.shape)
                 # gradient descent on weights
                 # sparse vector addition optimization
                 for feature_id, feature_value in x.iteritems():
-                    delta_w = (
-                        eta * error_term * feature_value
-                        - eta * reg_const * self.weights[feature_id, 0]  # regularization
-                        + momentum_constant * self.old_delta_w[feature_id, 0]  # momentum term
+                    delta_w_i[feature_id, 0] = eta * (
+                        error_term_i * feature_value
                     )
-                    # gradient descent
-                    self.weights[feature_id, 0] += delta_w
-                    self.old_delta_w[feature_id, 0] = delta_w
 
-            # calculate the average error for the validation set
+                # regularization
+                if reg_const != 0:
+                    delta_w_i -= reg_const * self.weights
+                # momentum term
+                if momentum_constant != 0:
+                    delta_w_i += momentum_constant * self.delta_w_old
+                # gradient descent
+                self.weights += delta_w_i
+                self.delta_w_old = delta_w_i
+
+            # calculate the average error for the validation set and check for convergence
             if epoch % epochs_per_validation == 0:
                 loss_new = self.get_avg_loss(
                     (validation_data, validation_targets))
@@ -80,11 +84,14 @@ class LogReg(object):
 
                 if difference > convergence_critera:
                     converged = True
-
-                loss_old = loss_new
+                else:
+                    # not converged, keep training
+                    # this rounds data will be next round's old data
+                    weights_old = np.copy(self.weights)
+                    loss_old = loss_new
 
         self.weights = weights_old
-        return weights_old
+        return self.weights
 
     def get_avg_loss(self, (validation_data, validation_targets)):
         validation_size = len(validation_data)
@@ -92,8 +99,16 @@ class LogReg(object):
         for i, x in enumerate(validation_data):
             h_i = self.feedforward_sparse(x)
             loss_sum += (h_i - validation_targets[i, 0])**2
-        l2_term = reduce(lambda acc, x: acc + x[0]**2, self.weights)[0]
-        return ((0.5*loss_sum) + (0.5*reg_const * l2_term)) / validation_size
+        avg_loss = 0.5 * loss_sum / validation_size
+        # Regularization removed from loss calculation
+        # to be able to compare results between runs with and without regularization
+        # and use the same convergence criteria.
+        # Uncomment below to add it back
+        # l2_term = reduce(lambda acc, x: acc + x[0]**2, self.weights)[0]
+        # if reg_const != 0:
+        #     l2_term = reduce(lambda acc, x: acc + x[0]**2, self.weights)[0]
+        #     avg_loss += 0.5 * reg_const * l2_term
+        return avg_loss
 
     def get_confusion_matrix(self, inputs, targets):
         confusion_matrix = np.zeros((2, 2))
