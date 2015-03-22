@@ -1,27 +1,59 @@
+"""
+main.py
+-------
+Performs logistic regression on given data.
+Uses k-fold cross validation for evaluation
+and will output the average recall, precision and f1 score to terminal.
+
+The feature files are separated into three sets: a test set, a training set, and a validation set.
+The validation set is used to determine convergence
+and prevent overfitting during the training phase.
+The test set is used to evaluate system's performance after training.
+
+To run
+------
+python main.py [data_dir]
+
+Command line arguments:
+    `data_dir` is the path to the directory containing all the feature files.
+
+Defaults:
+    `data_dir` = './data/'
+
+Assumes the following directory structure for `data_dir`
+    data_dir
+    |-- s1_features
+    |-- s2_features
+    |-- ...
+
+    Where the feature file contents are of the format:
+        <label> <feature1>:<value1> <feature2>:<value2>
+            where <label> == 0 or 1 since we're using logistic regression
+            example: "0 22199:0.0 13448:0.00148313739872 15346:7.97308993901e-05"
+"""
+
 from __future__ import division
 import numpy as np
-import os
+import os, sys
 import json
 
 from logistic_regression import LogReg
 
-
-feature_file_paths = [
-    './data/s1_features',
-    './data/s2_features',
-    './data/s3_features',
-    './data/s4_features',
-    './data/s5_features'
-]
+def_data_dir = './data/'
 
 
-def main():
+def main(data_dir=def_data_dir):
+    # get all feature file paths
+    feature_files = [f for f in os.listdir(data_dir) if f.endswith('_features')]
+    feature_file_paths = sorted([os.path.join(data_dir, f) for f in feature_files])
 
-    with open('./data/word2id.json') as json_file:
-        vocab_size = len(json.load(json_file))
+    # calculate vocabulary size
+    with open(os.path.join(data_dir, 'word2id.json')) as word2id_json_file:
+        vocab_size = len(json.load(word2id_json_file))
 
     precision_sum, recall_sum, f1_sum = 0, 0, 0
 
+    # setting up k-fold cross validation
     for i, test_set_path in enumerate(feature_file_paths):
         # separate into training, validation, and test sets
         training_set_paths = get_list_without_index(feature_file_paths, i)
@@ -130,4 +162,11 @@ def get_list_without_index(list, index):
 
 
 if __name__ == "__main__":
-    main()
+    data_dir = def_data_dir
+
+    # use command line arguments if provided
+    arg_count = len(sys.argv)
+    if arg_count > 1:
+        data_dir = sys.argv[1]
+
+    main(data_dir)
