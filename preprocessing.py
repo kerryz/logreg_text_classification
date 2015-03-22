@@ -4,6 +4,14 @@ preprocessing.py
 ----------------
 Preprocesses the documents and creates feature files that we later can train our system with.
 
+Each document is represented as a bag-of-word vector,
+but since this will generally produce a very sparse vector,
+only the words (features) with non-zero values are recorded in the feature files.
+
+Instead of using a simple term frequency approach,
+inspiration is drawn from the field of information retrieval and each term's
+[tf-idf](http://en.wikipedia.org/wiki/Tf%E2%80%93idf) value is used instead.
+
 To run
 ------
 python preprocessing.py [data_root_dir, [output_dir, [class0, [class1]]]]
