@@ -4,34 +4,36 @@ logistic_regression.py
 
 A module to implement logistic regression
 using stochastic gradient descent and the early stop method.
+A momentum constant is used as well in the update rule to avoid local minima.
 
-L2-regularization and a momentum term can be added to the update rule calculations
-by setting the parameters `reg_const` and `momentum_constant` to non-zero values.
-However, initial experiments have shown that these don't improve performance
+L2-regularization added to the update rule calculations
+by setting the parameters `reg_const` to a non-zero value.
+However, initial experiments have shown that this doesn't improve performance
 on the given dataset for this particular homework assignment, and therefore
-these constants are set to 0.
+the constant is set to 0.
 """
 
 from __future__ import division
 import numpy as np
 
-learning_rate = 1e04 * 2  # TODO: normalize my data...
+# learning_rate = 20 if momentum_constant == 0
+learning_rate = 1
 epochs_per_validation = 10
 convergence_critera = -1e-03 * 5
 
 # regularization constant
 # currently regularization is not used as it decreases performance
-# set reg_const to around 1e-03 for reasonable results
+# set reg_const to around 1e-04 for reasonable results
 reg_const = 0
-# currently the momentum term is not used because it doesn't improve performance
-momentum_constant = 0
+# momentum constant
+momentum_constant = 0.9
 
 
 class LogReg(object):
     """
     A class to perform logistic regression
-    using stochastic gradient descent and the early stop method,
-    with options to use l2-regularization and a momentum term.
+    using stochastic gradient descent with a momentum term and the early stop method,
+    with options to use l2-regularization.
 
     The early stop method is used to detect convergence and prevent overfitting.
     One training set and a validation set is to be provided and the early stop method

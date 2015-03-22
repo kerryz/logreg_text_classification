@@ -1,9 +1,9 @@
 # Description
 Implements logistic regression to classify a given set of documents as one of two classes: 0 or 1. 
 
-The loss function used is the ordinary least square, from which we derive an update rule that is implemented through stochastic gradient descent. The early stop method is used to detect convergence and prevent overfitting. The system also uses k-fold cross validation for evaluation and will output the average recall, precision and f1 score to terminal.
+The loss function used is the ordinary least square, from which we derive an update rule that is implemented through stochastic gradient descent. A momentum term is added to avoid local minima. The early stop method is used to detect convergence and prevent overfitting. The system also uses k-fold cross validation for evaluation and will output the average recall, precision and f1 score to terminal.
 
-Optionally, l2-regularization and a momentum term can be added to the calculations be setting the parameters `reg_const` and `momentum_constant` to non-zero values in `logistic_regression.py`. Currently, these values are set to 0 as initial experiments have shown that these don't improve performance on the given dataset for this particular homework assignment.
+Optionally, l2-regularization can be added to the calculations be setting the parameters `reg_const` to a non-zero values in `logistic_regression.py`. Currently, the value is set to 0 as initial experiments have shown that it doesn't improve performance on the given dataset for this particular homework assignment.
 
 # How to run
 Run the following commands in a terminal:
@@ -71,14 +71,32 @@ After download, the 'punkt' and 'stopwords' modules are required. To download, o
 Then an installation window appears. Go to the 'Models' tab and select 'punkt' from under the 'Identifier' column. Then click Download and it will install the necessary files. Go to the 'Corpora' tab and download 'stopwords'.
 
 # Results
-This is the final output of one of my test runs:
+This is the final output of some test runs using different parameter values:
+
+	learning_rate = 20
+	reg_const = 0
+	momentum_constant = 0
 
 	========================================
 	Averages of 5-fold cross validation
-	Recall:    0.948743718593
-	Precision: 0.948814066587
-	F1 Score:  0.948652476999
+	Recall:    0.969849246231
+	Precision: 0.967213866185
+	F1 Score:  0.96842753797
 	========================================
+
+.
+
+	learning_rate = 1
+	reg_const = 0
+	momentum_constant = 0.9
+
+	========================================
+	Averages of 5-fold cross validation
+	Recall:    0.970854271357
+	Precision: 0.967131900575
+	F1 Score:  0.968943256605
+	========================================
+
 
 # License
 
