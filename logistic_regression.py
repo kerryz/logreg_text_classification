@@ -6,8 +6,8 @@ A module to implement logistic regression
 using stochastic gradient descent and the early stop method.
 A momentum constant is used as well in the update rule to avoid local minima.
 
-L2-regularization added to the update rule calculations
-by setting the parameters `reg_const` to a non-zero value.
+L2-regularization can be added to the update rule calculations
+by setting the parameter `reg_const` to a non-zero value.
 However, initial experiments have shown that this doesn't improve performance
 on the given dataset for this particular homework assignment, and therefore
 the constant is set to 0.

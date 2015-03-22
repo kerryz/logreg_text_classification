@@ -3,12 +3,14 @@ Implements logistic regression to classify a given set of documents as one of tw
 
 The loss function used is the ordinary least square, from which we derive an update rule that is implemented through stochastic gradient descent. A momentum term is added to avoid local minima. The early stop method is used to detect convergence and prevent overfitting. The system also uses k-fold cross validation for evaluation and will output the average recall, precision and f1 score to terminal.
 
-Optionally, l2-regularization can be added to the calculations be setting the parameters `reg_const` to a non-zero values in `logistic_regression.py`. Currently, the value is set to 0 as initial experiments have shown that it doesn't improve performance on the given dataset for this particular homework assignment.
+Optionally, l2-regularization can be added to the calculations by setting the parameter `reg_const` to a non-zero value in `logistic_regression.py`. Currently, the value is set to 0 as initial experiments have shown that it doesn't improve performance on the given dataset for this particular homework assignment.
 
 ## Preprocessing
 The system uses a bag-of-word approach to classify the documents. Each document is represented as a bag-of-word vector, but since this will generally produce a very sparse vector, only the words (features) with non-zero values are recorded in the feature files. 
 
 Instead of using a simple term frequency approach, inspiration is drawn from the field of information retrieval and each term's [tf-idf](http://en.wikipedia.org/wiki/Tf%E2%80%93idf) value is used instead.
+
+Also, instead of a simple word tokenization performed through `text.split()`, the [Penn Treebank](http://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.treebank) approach is used.
 
 # How to run
 Run the following commands in a terminal:

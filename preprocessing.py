@@ -294,6 +294,8 @@ def get_idf_data(data_root_dir):
 def get_word_counts_in_document(document_path):
     """
     Computes the frequency of words occuring in a document.
+    Word tokenization is performed as in
+    [Penn Treebank](http://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.treebank)
 
     Document structure:
     * line 1: From (email address)
