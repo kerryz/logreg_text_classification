@@ -1,6 +1,19 @@
+"""
+logistic_regression.py
+----------------------
+
+A module to implement logistic regression
+using stochastic gradient descent and the early stop method.
+
+L2-regularization and a momentum term can be added to the update rule calculations
+by setting the parameters `reg_const` and `momentum_constant` to non-zero values.
+However, initial experiments have shown that these don't improve performance
+on the given dataset for this particular homework assignment, and therefore
+these constants are set to 0.
+"""
+
 from __future__ import division
 import numpy as np
-# TODO: regularization, momentum term
 
 learning_rate = 1e04 * 2  # TODO: normalize my data...
 epochs_per_validation = 10
@@ -15,7 +28,16 @@ momentum_constant = 0
 
 
 class LogReg(object):
-    """docstring for LogReg"""
+    """
+    A class to perform logistic regression
+    using stochastic gradient descent and the early stop method,
+    with options to use l2-regularization and a momentum term.
+
+    The early stop method is used to detect convergence and prevent overfitting.
+    One training set and a validation set is to be provided and the early stop method
+    detects convergence by measuring the difference of the average loss function value
+    calculated on the validation set after a set number of epochs of training on the training set.
+    """
     def __init__(self, num_weights, weights=None):
         self.num_weights = num_weights
         # initialize weights randomly if none is provided
@@ -29,7 +51,8 @@ class LogReg(object):
         Optimized for sparse input, hence x is in dictionary format: {position : value}
 
         Example of x:
-            [2, 0, 0, 0, 7, 19] would be represented as {0: 2, 4: 7, 5: 19}
+            feature vector [2, 0, 0, 0, 7, 19]
+            would be represented as {0: 2, 4: 7, 5: 19}
         """
         z = 0
         for feature_id, feature_value in x.iteritems():
@@ -37,8 +60,31 @@ class LogReg(object):
         return 1.0/(1.0 + np.exp(-z))
 
     def sgd(self, (training_data, targets), (validation_data, validation_targets),
-            eta=learning_rate, mini_batch_size=1):
-        """Stochastich gradient descent"""
+            eta=learning_rate):
+        """
+        Stochastich gradient descent
+
+        Parameters
+        ----------
+        training_data : list
+            list of dicts that represent sparse vectors.
+            Example of one such dict:
+                feature vector [2, 0, 0, 0, 7, 19]
+                would be represented as {0: 2, 4: 7, 5: 19}
+        targets : list (column vector)
+            a column vector containing the target values of each training sample.
+            Example: [[0], [0], [1], [1]]
+        (validation_data, validation_targets) : (list, list (column vector))
+            same format as `training_data` and `targets`
+        eta : float
+            the learning rate
+
+        Returns
+        -------
+        A column vector.
+        The weights of the system from the previous convergence check
+        after convergence was detected.
+        """
         converged = False
         epoch = 0
 
@@ -94,6 +140,21 @@ class LogReg(object):
         return self.weights
 
     def get_avg_loss(self, (validation_data, validation_targets)):
+        """
+        Calculates the average ordinary least square cost of the system
+        on a validation set.
+
+        Parameters
+        ----------
+        validation_data : list
+            list of dicts that represent sparse vectors.
+            Example of one such dict:
+                feature vector [2, 0, 0, 0, 7, 19]
+                would be represented as {0: 2, 4: 7, 5: 19}
+        validation_targets : list (column vector)
+            a column vector containing the target values of each training sample.
+            Example: [[0], [0], [1], [1]]
+        """
         validation_size = len(validation_data)
         loss_sum = 0
         for i, x in enumerate(validation_data):
@@ -111,6 +172,30 @@ class LogReg(object):
         return avg_loss
 
     def get_confusion_matrix(self, inputs, targets):
+        """
+        Parameters
+        ----------
+        inputs : list
+            list of dicts that represent sparse vectors.
+            Example of one such dict:
+                feature vector [2, 0, 0, 0, 7, 19]
+                would be represented as {0: 2, 4: 7, 5: 19}
+        targets : list (column vector)
+            a column vector containing the target values of each training sample.
+            Example: [[0], [0], [1], [1]]
+
+        Returns
+        -------
+        A 2d confusion matrix in the format:
+        [[ tp,  fp],
+         [ fn,  tn]]
+
+        where:
+            tp: true positive
+            fp: false positive
+            fn: false negative
+            tn: true negative
+        """
         confusion_matrix = np.zeros((2, 2))
         for i, x in enumerate(inputs):
             h_i = self.feedforward_sparse(x)
