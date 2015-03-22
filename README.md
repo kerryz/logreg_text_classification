@@ -68,6 +68,7 @@ Example:
 
 * nltk
 * numpy
+* Python 2.7.3
 
 ## nltk
 After download, the 'punkt' and 'stopwords' modules are required. To download, open a python shell type
