@@ -13,7 +13,7 @@ Instead of using a simple term frequency approach, inspiration is drawn from the
 Also, instead of a simple word tokenization performed through `text.split()`, the [Penn Treebank](http://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.treebank) approach is used.
 
 # How to run
-Run the following commands in a terminal:
+Run the following commands in a terminal (note that the package `nltk` is required for preprocessing. However, if you only want to run the logistic regression, `main.py` can be run since the generated data from preprocessing is already included in this package):
 
 	python preprocessing.py
 	python main.py
@@ -67,7 +67,9 @@ Example:
 # Requirements
 
 * nltk
+	* only required for preprocessing (Penn Treebank word tokenization)
 * numpy
+* Python 2.7.3
 
 ## nltk
 After download, the 'punkt' and 'stopwords' modules are required. To download, open a python shell type
