@@ -1,7 +1,7 @@
 # Description
 Implements logistic regression to classify a given set of documents as one of two classes: 0 or 1. 
 
-The loss function used is the ordinary least square, from which we derive an update rule that is implemented through stochastic gradient descent. A momentum term is added to avoid local minima. The early stop method is used to detect convergence and prevent overfitting. The system also uses k-fold cross validation for evaluation and will output the average recall, precision and f1 score to terminal.
+The loss function used is the logistic loss, from which we derive an update rule that is implemented through stochastic gradient descent. A momentum term is added to avoid local minima. The early stop method is used to detect convergence and prevent overfitting. The system also uses k-fold cross validation for evaluation and will output the average recall, precision and f1 score to terminal.
 
 Optionally, l2-regularization can be added to the calculations by setting the parameter `reg_const` to a non-zero value in `logistic_regression.py`. Currently, the value is set to 0 as initial experiments have shown that it doesn't improve performance on the given dataset for this particular homework assignment.
 

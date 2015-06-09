@@ -143,7 +143,7 @@ class LogReg(object):
 
     def get_avg_loss(self, (validation_data, validation_targets)):
         """
-        Calculates the average ordinary least square cost of the system
+        Calculates the average logistic loss of the system
         on a validation set.
 
         Parameters
@@ -161,7 +161,9 @@ class LogReg(object):
         loss_sum = 0
         for i, x in enumerate(validation_data):
             h_i = self.logistic_func_sparse(x)
-            loss_sum += (h_i - validation_targets[i, 0])**2
+            y_i = 1 if validation_targets[i, 0] == 1 else -1
+            loss_sum += np.log(1 + np.exp(-y_i*h_i))  # logistic loss
+            # loss_sum += (h_i - validation_targets[i, 0])**2  # square loss shouldn't be used
         avg_loss = 0.5 * loss_sum / validation_size
         # Regularization removed from loss calculation
         # to be able to compare results between runs with and without regularization
