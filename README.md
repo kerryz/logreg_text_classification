@@ -1,7 +1,7 @@
 # Description
 Implements logistic regression to classify a given set of documents as one of two classes: 0 or 1. 
 
-The loss function used is the logistic loss, from which we derive an update rule that is implemented through stochastic gradient descent. A momentum term is added to avoid local minima. The early stop method is used to detect convergence and prevent overfitting. The system also uses k-fold cross validation for evaluation and will output the average recall, precision and f1 score to terminal.
+The loss function used is the logistic loss, from which we derive an update rule that is implemented through stochastic gradient descent. The early stop method is used to detect convergence and prevent overfitting. The system also uses k-fold cross validation for evaluation and will output the average recall, precision and f1 score to terminal.
 
 Optionally, l2-regularization can be added to the calculations by setting the parameter `reg_const` to a non-zero value in `logistic_regression.py`. Currently, the value is set to 0 as initial experiments have shown that it doesn't improve performance on the given dataset for this particular homework assignment.
 
@@ -84,27 +84,33 @@ This is the final output of some test runs using different parameter values:
 
 	learning_rate = 20
 	reg_const = 0
-	momentum_constant = 0
 
 	========================================
 	Averages of 5-fold cross validation
-	Recall:    0.969849246231
-	Precision: 0.967213866185
-	F1 Score:  0.96842753797
+	Recall:    0.968844221106
+	Precision: 0.96434999261
+	F1 Score:  0.966456061963
 	========================================
+
+	real	0m38.678s
+	user	0m38.432s
+	sys	0m0.096s
 
 .
 
 	learning_rate = 1
 	reg_const = 0
-	momentum_constant = 0.9
 
 	========================================
 	Averages of 5-fold cross validation
-	Recall:    0.970854271357
-	Precision: 0.967131900575
-	F1 Score:  0.968943256605
+	Recall:    0.95175879397
+	Precision: 0.956805740703
+	F1 Score:  0.95416176996
 	========================================
+
+	real	1m3.228s
+	user	1m2.958s
+	sys	0m0.080s
 
 ## Example output
 
@@ -116,10 +122,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	loading feature file ./data/s4_features
 	loading feature file ./data/s5_features
 	Calculating the loss function value on the validation set ...
-	Epoch 0: average loss function value on validation set: 0.129136
+	Epoch 0: average loss function value on validation set: 0.362953
 	Convergence critera: when difference > -0.005000
-	Epoch 10: average loss function value: 0.020469  |  Difference: -0.108667
-	Epoch 20: average loss function value: 0.016072  |  Difference: -0.004397
+	Epoch 10: average loss function value: 0.275196  |  Difference: -0.087758
+	Epoch 20: average loss function value: 0.269903  |  Difference: -0.005293
+	Epoch 30: average loss function value: 0.267718  |  Difference: -0.002185
 	loading feature file ./data/s1_features
 
 	----------------------------------------
@@ -128,11 +135,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	validation set:  s5_features
 
 	Confusion matrix
-	[[ 188.   13.]
-	 [  11.  186.]]
-	Recall:    0.94472361809
-	Precision: 0.935323383085
-	F1 Score:  0.94
+	[[ 187.   10.]
+	 [  12.  189.]]
+	Recall:    0.939698492462
+	Precision: 0.94923857868
+	F1 Score:  0.944444444444
 	----------------------------------------
 
 	loading feature file ./data/s3_features
@@ -140,11 +147,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	loading feature file ./data/s5_features
 	loading feature file ./data/s1_features
 	Calculating the loss function value on the validation set ...
-	Epoch 0: average loss function value on validation set: 0.123604
+	Epoch 0: average loss function value on validation set: 0.361451
 	Convergence critera: when difference > -0.005000
-	Epoch 10: average loss function value: 0.030258  |  Difference: -0.093346
-	Epoch 20: average loss function value: 0.024601  |  Difference: -0.005657
-	Epoch 30: average loss function value: 0.022313  |  Difference: -0.002288
+	Epoch 10: average loss function value: 0.289042  |  Difference: -0.072409
+	Epoch 20: average loss function value: 0.282983  |  Difference: -0.006059
+	Epoch 30: average loss function value: 0.280237  |  Difference: -0.002745
 	loading feature file ./data/s2_features
 
 	----------------------------------------
@@ -153,11 +160,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	validation set:  s1_features
 
 	Confusion matrix
-	[[ 196.    2.]
-	 [   3.  197.]]
+	[[ 196.    3.]
+	 [   3.  196.]]
 	Recall:    0.984924623116
-	Precision: 0.989898989899
-	F1 Score:  0.987405541562
+	Precision: 0.984924623116
+	F1 Score:  0.984924623116
 	----------------------------------------
 
 	loading feature file ./data/s1_features
@@ -165,10 +172,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	loading feature file ./data/s5_features
 	loading feature file ./data/s2_features
 	Calculating the loss function value on the validation set ...
-	Epoch 0: average loss function value on validation set: 0.124582
+	Epoch 0: average loss function value on validation set: 0.363887
 	Convergence critera: when difference > -0.005000
-	Epoch 10: average loss function value: 0.017981  |  Difference: -0.106601
-	Epoch 20: average loss function value: 0.013687  |  Difference: -0.004294
+	Epoch 10: average loss function value: 0.274954  |  Difference: -0.088933
+	Epoch 20: average loss function value: 0.269577  |  Difference: -0.005377
+	Epoch 30: average loss function value: 0.267367  |  Difference: -0.002209
 	loading feature file ./data/s3_features
 
 	----------------------------------------
@@ -177,11 +185,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	validation set:  s2_features
 
 	Confusion matrix
-	[[ 195.    8.]
-	 [   4.  191.]]
-	Recall:    0.979899497487
-	Precision: 0.960591133005
-	F1 Score:  0.970149253731
+	[[ 194.    8.]
+	 [   5.  191.]]
+	Recall:    0.974874371859
+	Precision: 0.960396039604
+	F1 Score:  0.967581047382
 	----------------------------------------
 
 	loading feature file ./data/s1_features
@@ -189,10 +197,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	loading feature file ./data/s5_features
 	loading feature file ./data/s3_features
 	Calculating the loss function value on the validation set ...
-	Epoch 0: average loss function value on validation set: 0.129245
+	Epoch 0: average loss function value on validation set: 0.362763
 	Convergence critera: when difference > -0.005000
-	Epoch 10: average loss function value: 0.022041  |  Difference: -0.107204
-	Epoch 20: average loss function value: 0.017050  |  Difference: -0.004991
+	Epoch 10: average loss function value: 0.276761  |  Difference: -0.086001
+	Epoch 20: average loss function value: 0.271401  |  Difference: -0.005360
+	Epoch 30: average loss function value: 0.269151  |  Difference: -0.002249
 	loading feature file ./data/s4_features
 
 	----------------------------------------
@@ -201,11 +210,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	validation set:  s3_features
 
 	Confusion matrix
-	[[ 194.   12.]
-	 [   5.  187.]]
-	Recall:    0.974874371859
-	Precision: 0.941747572816
-	F1 Score:  0.958024691358
+	[[ 195.   13.]
+	 [   4.  186.]]
+	Recall:    0.979899497487
+	Precision: 0.9375
+	F1 Score:  0.958230958231
 	----------------------------------------
 
 	loading feature file ./data/s1_features
@@ -213,10 +222,11 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	loading feature file ./data/s3_features
 	loading feature file ./data/s4_features
 	Calculating the loss function value on the validation set ...
-	Epoch 0: average loss function value on validation set: 0.130494
+	Epoch 0: average loss function value on validation set: 0.361495
 	Convergence critera: when difference > -0.005000
-	Epoch 10: average loss function value: 0.023292  |  Difference: -0.107202
-	Epoch 20: average loss function value: 0.018706  |  Difference: -0.004586
+	Epoch 10: average loss function value: 0.277648  |  Difference: -0.083848
+	Epoch 20: average loss function value: 0.272506  |  Difference: -0.005142
+	Epoch 30: average loss function value: 0.270428  |  Difference: -0.002078
 	loading feature file ./data/s5_features
 
 	----------------------------------------
@@ -225,23 +235,23 @@ This is the terminal output of running `main.py` on Ubuntu 12.04. The `time` com
 	validation set:  s4_features
 
 	Confusion matrix
-	[[ 190.    2.]
-	 [   9.  196.]]
-	Recall:    0.954773869347
-	Precision: 0.989583333333
-	F1 Score:  0.971867007673
+	[[ 192.    2.]
+	 [   7.  196.]]
+	Recall:    0.964824120603
+	Precision: 0.989690721649
+	F1 Score:  0.977099236641
 	----------------------------------------
 
 	========================================
 	Averages of 5-fold cross validation
-	Recall:    0.96783919598
-	Precision: 0.963428882427
-	F1 Score:  0.965489298865
+	Recall:    0.968844221106
+	Precision: 0.96434999261
+	F1 Score:  0.966456061963
 	========================================
 
-	real	0m33.503s
-	user	0m33.440s
-	sys	0m0.060s
+	real	0m38.678s
+	user	0m38.432s
+	sys	0m0.096s
 
 
 # License

@@ -25,8 +25,6 @@ convergence_critera = -1e-03 * 5
 # currently regularization is not used as it decreases performance
 # set reg_const to around 1e-04 for reasonable results
 reg_const = 0
-# momentum constant
-momentum_constant = 0.9
 
 
 class LogReg(object):
@@ -115,9 +113,10 @@ class LogReg(object):
                 # regularization
                 if reg_const != 0:
                     delta_w_i -= reg_const * self.weights
-                # momentum term
-                if momentum_constant != 0:
-                    delta_w_i += momentum_constant * self.delta_w_old
+                # momentum term not needed as logistic loss is convex
+                # and local minimum is global minimum
+                # if momentum_constant != 0:
+                #     delta_w_i += momentum_constant * self.delta_w_old
                 # gradient descent
                 self.weights += delta_w_i
                 self.delta_w_old = delta_w_i
