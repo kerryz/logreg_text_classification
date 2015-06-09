@@ -47,7 +47,7 @@ class LogReg(object):
         # momentum term
         self.delta_w_old = np.zeros((num_weights, 1))
 
-    def feedforward_sparse(self, x):
+    def logistic_func_sparse(self, x):
         """
         Returns output of system if `x` is the input vector.
         Optimized for sparse input, hence x is in dictionary format: {position : value}
@@ -102,7 +102,7 @@ class LogReg(object):
             epoch += 1
             # go through the training data
             for i, x in enumerate(training_data):
-                h_i = self.feedforward_sparse(x)
+                h_i = self.logistic_func_sparse(x)
                 error_term_i = targets[i, 0] - h_i
                 delta_w_i = np.zeros(self.weights.shape)
                 # gradient descent on weights
@@ -160,7 +160,7 @@ class LogReg(object):
         validation_size = len(validation_data)
         loss_sum = 0
         for i, x in enumerate(validation_data):
-            h_i = self.feedforward_sparse(x)
+            h_i = self.logistic_func_sparse(x)
             loss_sum += (h_i - validation_targets[i, 0])**2
         avg_loss = 0.5 * loss_sum / validation_size
         # Regularization removed from loss calculation
@@ -200,7 +200,7 @@ class LogReg(object):
         """
         confusion_matrix = np.zeros((2, 2))
         for i, x in enumerate(inputs):
-            h_i = self.feedforward_sparse(x)
+            h_i = self.logistic_func_sparse(x)
             h_i = 0 if h_i < 0.5 else 1
             actual_i = targets[i, 0]
 
